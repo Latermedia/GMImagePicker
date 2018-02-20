@@ -364,8 +364,8 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.contentView.backgroundColor = [UIColor clearColor];
-    header.backgroundView.backgroundColor = self.picker.pickerBackgroundColor;
+    //header.contentView.backgroundColor = [UIColor clearColor];
+    //header.backgroundView.backgroundColor = self.picker.pickerBackgroundColor;
 
     // Default is a bold font, but keep this styled as a normal font
     header.textLabel.font = [UIFont fontWithName:self.picker.pickerFontName size:self.picker.pickerFontNormalSize];
