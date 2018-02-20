@@ -128,11 +128,6 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
     self.imageManager = [[PHCachingImageManager alloc] init];
     [self resetCachedAssets];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -356,7 +351,10 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
     // Setting `selected` property blocks further deselection. Have to call selectItemAtIndexPath too. ( ref: http://stackoverflow.com/a/17812116/1648333 )
     if ([self.picker.selectedAssets containsObject:asset]) {
         cell.selected = YES;
-        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        // If we call it right away a different cell will get selected
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        });
     } else {
         cell.selected = NO;
     }
@@ -485,11 +483,6 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
                     NSIndexSet *insertedIndexes = [collectionChanges insertedIndexes];
                     if ([insertedIndexes count]) {
                         [collectionView insertItemsAtIndexPaths:[insertedIndexes aapl_indexPathsFromIndexesWithSection:0]];
-                        if (self.picker.showCameraButton && self.picker.autoSelectCameraImages) {
-                            for (NSIndexPath *path in [insertedIndexes aapl_indexPathsFromIndexesWithSection:0]) {
-                                [self collectionView:collectionView didSelectItemAtIndexPath:path];
-                            }
-                        }
                     }
                     NSIndexSet *changedIndexes = [collectionChanges changedIndexes];
                     if ([changedIndexes count]) {
