@@ -123,6 +123,9 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
 
 -(void)updateFetchResults
 {
+    if (self.picker.mediaTypes == NULL) {
+        self.picker.mediaTypes = @[@(PHAssetMediaTypeImage)];
+    }
     //What I do here is fetch both the albums list and the assets of each album.
     //This way I have acces to the number of items in each album, I can load the 3
     //thumbnails directly and I can pass the fetched result to the gridViewController.
