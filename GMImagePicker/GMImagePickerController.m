@@ -64,7 +64,7 @@
         _navigationBarTextColor = [UIColor darkTextColor];
         _navigationBarTintColor = [UIColor darkTextColor];
         
-        _toolbarTextColor = [UIColor darkTextColor];
+        _toolbarTextColor = [UIColor labelColor];
         _toolbarTintColor = [UIColor darkTextColor];
         
         _pickerStatusBarStyle = UIStatusBarStyleDefault;
