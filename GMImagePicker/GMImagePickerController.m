@@ -130,28 +130,28 @@
 - (void)selectAsset:(PHAsset *)asset
 {
     if (asset) {
-    [self.selectedAssets insertObject:asset atIndex:self.selectedAssets.count];
-    [self updateDoneButton];
-    
-    if (!self.allowsMultipleSelection) {
-        if (self.confirmSingleSelection) {
-            NSString *message = self.confirmSingleSelectionPrompt ? self.confirmSingleSelectionPrompt : [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.message",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Do you want to select the image you tapped on?")];
-            NSString *title = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Are You Sure?")];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-            NSString *yesTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.yes",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Yes")];
-            [alertController addAction:[UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.selectedAssets insertObject:asset atIndex:self.selectedAssets.count];
+        [self updateDoneButton];
+        
+        if (!self.allowsMultipleSelection) {
+            if (self.confirmSingleSelection) {
+                NSString *message = self.confirmSingleSelectionPrompt ? self.confirmSingleSelectionPrompt : [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.message",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Do you want to select the image you tapped on?")];
+                NSString *title = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.confirm.title",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Are You Sure?")];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                NSString *yesTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.yes",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"Yes")];
+                [alertController addAction:[UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [self finishPickingAssets:self];
+                }]];
+                NSString *noTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.no",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"No")];
+                [alertController addAction:[UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleCancel handler:nil]];
+                
+                [self presentViewController:alertController animated:YES completion:nil];
+            } else {
                 [self finishPickingAssets:self];
-            }]];
-            NSString *noTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"picker.action.no",  @"GMImagePicker", [NSBundle bundleForClass:GMImagePickerController.class],  @"No")];
-            [alertController addAction:[UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleCancel handler:nil]];
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-        } else {
-            [self finishPickingAssets:self];
+            }
+        } else if (self.displaySelectionInfoToolbar || self.showCameraButton) {
+            [self updateToolbar];
         }
-    } else if (self.displaySelectionInfoToolbar || self.showCameraButton) {
-        [self updateToolbar];
-    }
     }
 }
 
