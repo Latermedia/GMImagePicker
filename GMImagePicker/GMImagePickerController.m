@@ -129,6 +129,7 @@
 
 - (void)selectAsset:(PHAsset *)asset
 {
+    if (asset) {
     [self.selectedAssets insertObject:asset atIndex:self.selectedAssets.count];
     [self updateDoneButton];
     
@@ -150,6 +151,7 @@
         }
     } else if (self.displaySelectionInfoToolbar || self.showCameraButton) {
         [self updateToolbar];
+    }
     }
 }
 
