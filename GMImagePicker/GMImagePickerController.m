@@ -64,7 +64,11 @@
         _navigationBarTextColor = [UIColor darkTextColor];
         _navigationBarTintColor = [UIColor darkTextColor];
         
-        _toolbarTextColor = [UIColor labelColor];
+        if (@available(iOS 13.0, *)) {
+            _toolbarTextColor = [UIColor labelColor];
+        } else {
+            _toolbarTextColor = [UIColor darkTextColor];
+        }
         _toolbarTintColor = [UIColor darkTextColor];
         
         _pickerStatusBarStyle = UIStatusBarStyleDefault;
