@@ -160,7 +160,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     NSMutableArray *userFetchResultLabel = [[NSMutableArray alloc] init];
     for(PHCollection *collection in topLevelUserCollections)
     {
-        if ([collection isKindOfClass:[PHAssetCollection class]])
+        if ([collection isKindOfClass:[PHAssetCollection class]] && collection.localizedTitle != nil)
         {
             PHFetchOptions *options = [[PHFetchOptions alloc] init];
             options.predicate = [NSPredicate predicateWithFormat:@"mediaType in %@", self.picker.mediaTypes];
@@ -179,7 +179,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     NSMutableArray *syncedFetchResultLabel = [[NSMutableArray alloc] init];
     for(PHCollection *collection in syncedAlbums)
     {
-        if ([collection isKindOfClass:[PHAssetCollection class]])
+        if ([collection isKindOfClass:[PHAssetCollection class]] && collection.localizedTitle != nil)
         {
             PHFetchOptions *options = [[PHFetchOptions alloc] init];
             options.predicate = [NSPredicate predicateWithFormat:@"mediaType in %@", self.picker.mediaTypes];
@@ -198,7 +198,7 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
     NSMutableArray *smartFetchResultLabel = [[NSMutableArray alloc] init];
     for(PHCollection *collection in smartAlbums)
     {
-        if ([collection isKindOfClass:[PHAssetCollection class]])
+        if ([collection isKindOfClass:[PHAssetCollection class]]  && collection.localizedTitle != nil)
         {
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
             
