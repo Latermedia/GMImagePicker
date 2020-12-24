@@ -484,11 +484,14 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
                     if ([insertedIndexes count]) {
                         [collectionView insertItemsAtIndexPaths:[insertedIndexes aapl_indexPathsFromIndexesWithSection:0]];
                     }
-                    NSIndexSet *changedIndexes = [collectionChanges changedIndexes];
-                    if ([changedIndexes count]) {
-                        [collectionView reloadItemsAtIndexPaths:[changedIndexes aapl_indexPathsFromIndexesWithSection:0]];
-                    }
-                } completion:NULL];
+                } completion:^(BOOL finished) {
+                    if (finished) {
+                        NSIndexSet *changedIndexes = [collectionChanges changedIndexes];
+                        if ([changedIndexes count]) {
+                            [collectionView reloadItemsAtIndexPaths:[changedIndexes aapl_indexPathsFromIndexesWithSection:0]];
+                        }
+                   }
+                }];
             }
             
             [self resetCachedAssets];
